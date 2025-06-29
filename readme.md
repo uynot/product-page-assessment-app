@@ -1,9 +1,8 @@
 # 🛍️ Product Catalog Demo
 
-A modern, responsive product catalog web application built with **React**, **Tailwind CSS**, and **TypeScript**.  
-This project was created for academic purposes to demonstrate filtering, responsive design, animation, and component reuse.
+A modern, responsive product catalog web application built with **React**, **Tailwind CSS**, and **TypeScript**.
 
-![Preview Banner](public/screenshot/mainpage.jpg) ![Filter Panel](public/screenshot/filter.jpg) ![Added to Cart Dialog](public/screenshot/adddialog.jpg) ![Mobile View](public/screenshot/mobileview.jpg) ![Mobile Filter Panel](public/screenshot/mobilefilter.jpg)
+This project was created for academic purposes to demonstrate filtering, responsive design, animation, and component reuse.
 
 ---
 
@@ -32,6 +31,30 @@ This project was created for academic purposes to demonstrate filtering, respons
 | **TanStack React Query** | Data fetching and caching (extensible) |
 | **Lucide React**         | Icons                                  |
 | **Radix UI**             | Accessible tooltip & switch            |
+
+---
+
+## 📸 Preview
+
+### 🖼️ Main Page
+
+![Main Page](public/screenshot/mainpage.jpg)
+
+### 🎛️ Filter Panel
+
+![Filter Panel](public/screenshot/filter.jpg)
+
+### 🛒 Added to Cart Dialog
+
+![Add to Cart Dialog](public/screenshot/adddialog.jpg)
+
+### 📱 Mobile View
+
+![Mobile View](public/screenshot/mobileview.jpg)
+
+### 📂 Mobile Filter Drawer
+
+![Mobile Filter](public/screenshot/mobilefilter.jpg)
 
 ---
 
