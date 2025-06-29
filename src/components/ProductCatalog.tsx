@@ -3,7 +3,7 @@ import FilterPanel from "./FilterPanel";
 import FilterPanelSkeleton from "./FilterPanelSkeleton";
 import ProductGrid from "./ProductGrid";
 import products from "@/data/products";
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Filter } from "lucide-react";
 
@@ -85,6 +85,10 @@ const ProductCatalog = () => {
 							</Button>
 						</SheetTrigger>
 						<SheetContent side="bottom" className="p-0 max-h-[90vh] overflow-y-auto">
+							<SheetHeader>
+								<SheetTitle className="sr-only">Filter Products</SheetTitle>
+							</SheetHeader>
+
 							<div className="p-5">
 								<FilterPanel
 									isMobile={true}
