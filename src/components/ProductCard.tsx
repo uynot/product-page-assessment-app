@@ -14,7 +14,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 	};
 
 	return (
-		<Card className="group relative overflow-hidden bg-white/70 backdrop-blur-sm border border-white/20 hover:bg-white/80 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02]">
+		<Card className="group relative overflow-hidden bg-white/70 backdrop-blur-sm border border-white/20 hover:bg-white/80 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 transform hover:-translate-y-2">
 			<CardContent className="p-0">
 				<div className="relative overflow-hidden">
 					<div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
@@ -52,17 +52,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
 							</Badge>
 						)}
 					</div>
-
-					{/* Out of Stock Overlay */}
-					{!product.inStock && (
-						<div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] flex items-center justify-center">
-							<div className="text-center">
-								<div className="bg-white/90 backdrop-blur-md rounded-lg px-6 py-3 shadow-xl">
-									<p className="text-gray-800 font-semibold">Currently Unavailable</p>
-								</div>
-							</div>
-						</div>
-					)}
 				</div>
 
 				<div className="p-6 bg-gradient-to-b from-white/50 to-white/30 backdrop-blur-sm">
@@ -74,17 +63,19 @@ const ProductCard = ({ product }: ProductCardProps) => {
 						</div>
 
 						<div className="flex items-center justify-between">
-							<div className="flex flex-col">
-								<span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+							<div className="flex flex-col justify-center">
+								<span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent leading-none">
 									${product.price}
 								</span>
-								<span className="text-sm text-gray-500 font-medium">{product.inStock ? "Available now" : "Notify when available"}</span>
+								<span className="text-sm text-gray-500 font-medium mt-1">
+									{product.inStock ? "Available now" : "Notify when available"}
+								</span>
 							</div>
 
 							<button
 								className={`group/btn relative overflow-hidden px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform ${
 									product.inStock
-										? "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl hover:shadow-blue-500/25 hover:scale-105 active:scale-95"
+										? "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl hover:shadow-blue-500/25 active:scale-95"
 										: "bg-gray-200/80 backdrop-blur-sm text-gray-500 cursor-not-allowed border border-gray-300/50"
 								}`}
 								disabled={!product.inStock}>

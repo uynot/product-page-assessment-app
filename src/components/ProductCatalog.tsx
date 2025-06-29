@@ -1,5 +1,6 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import FilterPanel from "./FilterPanel";
+import FilterPanelSkeleton from "./FilterPanelSkeleton";
 import ProductGrid from "./ProductGrid";
 
 const products = [
@@ -29,8 +30,18 @@ export interface Product {
 const ProductCatalog = () => {
 	const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 	const [showInStockOnly, setShowInStockOnly] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 
-	// Get unique categories
+	// Simulate loading effect
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setIsLoading(false);
+		}, 1500);
+
+		return () => clearTimeout(timer);
+	}, []);
+
+	// Get unique categories dynamically from the products data
 	const categories = useMemo(() => {
 		return Array.from(new Set(products.map((product) => product.category)));
 	}, []);
@@ -61,22 +72,28 @@ const ProductCatalog = () => {
 
 			<div className="flex flex-col lg:flex-row gap-8">
 				<div className="lg:w-1/4">
-					<FilterPanel
-						categories={categories}
-						selectedCategories={selectedCategories}
-						showInStockOnly={showInStockOnly}
-						onCategoryChange={handleCategoryChange}
-						onStockToggle={setShowInStockOnly}
-					/>
+					{isLoading ? (
+						<FilterPanelSkeleton />
+					) : (
+						<FilterPanel
+							categories={categories}
+							selectedCategories={selectedCategories}
+							showInStockOnly={showInStockOnly}
+							onCategoryChange={handleCategoryChange}
+							onStockToggle={setShowInStockOnly}
+						/>
+					)}
 				</div>
 
 				<div className="lg:w-3/4">
-					<div className="mb-6">
-						<p className="text-gray-600">
-							Showing {filteredProducts.length} of {products.length} products
-						</p>
-					</div>
-					<ProductGrid products={filteredProducts} />
+					{!isLoading && (
+						<div className="mb-6">
+							<p className="text-gray-600">
+								Showing {filteredProducts.length} of {products.length} products
+							</p>
+						</div>
+					)}
+					<ProductGrid products={filteredProducts} isLoading={isLoading} />
 				</div>
 			</div>
 		</div>
