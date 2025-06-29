@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Product } from "./ProductCatalog";
 import { Check, ShoppingCart } from "lucide-react";
 import AddToCartDialog from "@/components/ui/AddToCartDialog";
+import { useNavigate } from "react-router-dom";
 
 interface ProductCardProps {
 	product: Product;
@@ -26,6 +27,14 @@ const ProductCard = ({ product, onAdd }: ProductCardProps) => {
 		}
 	};
 
+	const navigate = useNavigate();
+
+	// for demonstration purposes so we can only see the NotFound page instead of the actual product details
+	const handleImageClick = () => {
+		console.log("clicked image"); // debug
+		navigate("/NotFound");
+	};
+
 	return (
 		<>
 			<AddToCartDialog show={showDialog} onDone={() => setShowDialog(false)} />
@@ -33,11 +42,15 @@ const ProductCard = ({ product, onAdd }: ProductCardProps) => {
 			<Card className="group relative overflow-hidden bg-white/70 backdrop-blur-sm border border-white/20 hover:bg-white/80 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500">
 				<CardContent className="p-0">
 					<div className="relative overflow-hidden">
-						<div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
+						<div
+							onClick={handleImageClick}
+							className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 relative cursor-pointer">
 							<img
 								src={product.image}
 								alt={product.name}
 								className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+								draggable={false}
+								onContextMenu={(e) => e.preventDefault()}
 							/>
 							<div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 						</div>
