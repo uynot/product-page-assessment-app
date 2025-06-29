@@ -17,6 +17,8 @@ This project was created for academic purposes to demonstrate filtering, respons
 - ✅ "Not added only" filter
 - ✅ Add to cart animation dialog
 - ✅ Responsive grid layout
+- ✅ Grid layout animation (with `framer-motion`)
+- ✅ Skeleton loading UI while fetching products
 - ✅ Tooltip, badge, card UI components
 - ✅ Error page redirection (404-style)
 - ✅ Clean code structure using component composition
@@ -35,6 +37,7 @@ This project was created for academic purposes to demonstrate filtering, respons
 | **TanStack React Query** | Data fetching and caching (extensible) |
 | **Lucide React**         | Icons                                  |
 | **Radix UI**             | Accessible tooltip & switch            |
+| **Framer Motion**        | Layout & transition animations         |
 
 ---
 
