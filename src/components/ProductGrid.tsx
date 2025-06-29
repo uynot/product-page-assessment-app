@@ -6,9 +6,10 @@ import { Product } from "./ProductCatalog";
 interface ProductGridProps {
 	products: Product[];
 	isLoading?: boolean;
+	onAdd: (productId: number) => void;
 }
 
-const ProductGrid = ({ products, isLoading = false }: ProductGridProps) => {
+const ProductGrid = ({ products, isLoading = false, onAdd }: ProductGridProps) => {
 	if (isLoading) {
 		return (
 			<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -41,7 +42,7 @@ const ProductGrid = ({ products, isLoading = false }: ProductGridProps) => {
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 			{products.map((product) => (
-				<ProductCard key={product.id} product={product} />
+				<ProductCard key={product.id} product={product} onAdd={onAdd} /> // ✅ 傳下去
 			))}
 		</div>
 	);
