@@ -1,20 +1,24 @@
 import React from "react";
 import ProductCard from "./ProductCard";
-
-interface Product {
-	id: number;
-	name: string;
-	category: string;
-	inStock: boolean;
-	price: number;
-	image: string;
-}
+import ProductCardSkeleton from "./ProductCardSkeleton";
+import { Product } from "./ProductCatalog";
 
 interface ProductGridProps {
 	products: Product[];
+	isLoading?: boolean;
 }
 
-const ProductGrid = ({ products }: ProductGridProps) => {
+const ProductGrid = ({ products, isLoading = false }: ProductGridProps) => {
+	if (isLoading) {
+		return (
+			<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+				{Array.from({ length: 6 }).map((_, index) => (
+					<ProductCardSkeleton key={index} />
+				))}
+			</div>
+		);
+	}
+
 	if (products.length === 0) {
 		return (
 			<div className="text-center py-12">
