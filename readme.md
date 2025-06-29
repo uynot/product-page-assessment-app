@@ -6,6 +6,10 @@ This project was created for academic purposes to demonstrate filtering, respons
 
 ---
 
+## 🔗 Live Demo
+
+👉 [https://product-page-assessment-app.vercel.app/](https://product-page-assessment-app.vercel.app/)
+
 ## ✨ Features
 
 - ✅ Product category filter
