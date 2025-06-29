@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useMemo, useEffect } from "react";
+import products from "@/data/products";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Switch } from "@/components/ui/switch";
@@ -11,12 +12,33 @@ interface FilterPanelProps {
 	showInStockOnly: boolean;
 	onCategoryChange: (category: string, checked: boolean) => void;
 	onStockToggle: (checked: boolean) => void;
+	showNotAddedOnly: boolean;
+	onNotAddedToggle: (checked: boolean) => void;
+	addedProductIds: number[];
 }
 
-const FilterPanel = ({ categories, selectedCategories, showInStockOnly, onCategoryChange, onStockToggle }: FilterPanelProps) => {
+const FilterPanel = ({
+	categories,
+	selectedCategories,
+	showInStockOnly,
+	onCategoryChange,
+	onStockToggle,
+	showNotAddedOnly,
+	onNotAddedToggle,
+	addedProductIds,
+}: FilterPanelProps) => {
 	const capitalizeCategory = (category: string) => {
 		return category.charAt(0).toUpperCase() + category.slice(1);
 	};
+
+	const filteredProducts = useMemo(() => {
+		return products.filter((product) => {
+			const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(product.category);
+			const matchesStock = !showInStockOnly || product.inStock;
+			const matchesNotAdded = !showNotAddedOnly || !addedProductIds.includes(product.id);
+			return matchesCategory && matchesStock && matchesNotAdded;
+		});
+	}, [selectedCategories, showInStockOnly, showNotAddedOnly, addedProductIds]);
 
 	return (
 		<Card className="sticky top-4">
@@ -50,8 +72,8 @@ const FilterPanel = ({ categories, selectedCategories, showInStockOnly, onCatego
 
 				{/* Stock Filter */}
 				<div>
-					<h3 className="font-semibold text-gray-900 mb-3">Availability</h3>
-					<div className="flex items-center space-x-2">
+					<h3 className="font-semibold text-gray-900 mb-2">Availability</h3>
+					<div className="flex items-center space-x-2 mb-1">
 						<Switch id="in-stock" checked={showInStockOnly} onCheckedChange={onStockToggle} />
 						<Label
 							htmlFor="in-stock"
@@ -59,10 +81,22 @@ const FilterPanel = ({ categories, selectedCategories, showInStockOnly, onCatego
 							In stock only
 						</Label>
 					</div>
+					<div className="flex items-center space-x-2">
+						<Switch id="not-added" checked={showNotAddedOnly} onCheckedChange={onNotAddedToggle} />
+						<Label htmlFor="not-added" className="text-sm font-medium cursor-pointer">
+							Not added only
+						</Label>
+					</div>
+
+					<div className="">
+						<span className="inline-block bg-gray-100 text-gray-700 text-sm font-medium mt-3 px-3 py-1 rounded-md shadow-sm">
+							Showing {filteredProducts.length} of {products.length} products
+						</span>
+					</div>
 				</div>
 
 				{/* Active Filters Summary */}
-				{(selectedCategories.length > 0 || showInStockOnly) && (
+				{(selectedCategories.length > 0 || showInStockOnly || showNotAddedOnly) && (
 					<div className="pt-4 border-t">
 						<h4 className="font-medium text-gray-900 mb-2">Active Filters:</h4>
 						<div className="space-y-1 text-sm text-gray-600">
@@ -70,6 +104,7 @@ const FilterPanel = ({ categories, selectedCategories, showInStockOnly, onCatego
 								<div key={category}>• {capitalizeCategory(category)}</div>
 							))}
 							{showInStockOnly && <div>• In stock only</div>}
+							{showNotAddedOnly && <div>• Not added only</div>}
 						</div>
 					</div>
 				)}
