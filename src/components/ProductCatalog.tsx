@@ -49,6 +49,7 @@ const ProductCatalog = () => {
 			<div className="mb-8">
 				<h1 className="text-4xl font-bold text-gray-900 mb-2">Product Catalog</h1>
 				<p className="text-lg text-gray-600">Assessment for product list and filter</p>
+				<p className="text-xs text-gray-600">Image used under fair use for academic demonstration purposes only</p>
 			</div>
 
 			<div className="flex flex-col lg:flex-row gap-8">
