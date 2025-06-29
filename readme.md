@@ -3,7 +3,7 @@
 A modern, responsive product catalog web application built with **React**, **Tailwind CSS**, and **TypeScript**.  
 This project was created for academic purposes to demonstrate filtering, responsive design, animation, and component reuse.
 
-![Preview Banner](public/screenshot/mainpage.jpg) ![Filter Panel](public/screenshot/filter.jpg) ![Added to Cart Dialog](public/screenshot/adddialog.jpg))
+![Preview Banner](public/screenshot/mainpage.jpg) ![Filter Panel](public/screenshot/filter.jpg) ![Added to Cart Dialog](public/screenshot/adddialog.jpg) ![Mobile View](public/screenshot/mobileview.jpg) ![Mobile Filter Panel](public/screenshot/mobilefilter.jpg)
 
 ---
 

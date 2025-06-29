@@ -3,6 +3,9 @@ import FilterPanel from "./FilterPanel";
 import FilterPanelSkeleton from "./FilterPanelSkeleton";
 import ProductGrid from "./ProductGrid";
 import products from "@/data/products";
+import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { Filter } from "lucide-react";
 
 export interface Product {
 	id: number;
@@ -53,11 +56,13 @@ const ProductCatalog = () => {
 			</div>
 
 			<div className="flex flex-col lg:flex-row gap-8">
-				<div className="lg:w-1/4">
+				{/* Desktop Filter Panel */}
+				<div className="hidden lg:block lg:w-1/4">
 					{isLoading ? (
 						<FilterPanelSkeleton />
 					) : (
 						<FilterPanel
+							isMobile={false}
 							categories={categories}
 							selectedCategories={selectedCategories}
 							showInStockOnly={showInStockOnly}
@@ -70,6 +75,34 @@ const ProductCatalog = () => {
 					)}
 				</div>
 
+				{/* Mobile Filter Drawer */}
+				<div className="lg:hidden mb-4">
+					<Sheet>
+						<SheetTrigger asChild>
+							<Button className="w-full flex items-center gap-2" variant="outline">
+								<Filter className="w-4 h-4" />
+								Filter Products
+							</Button>
+						</SheetTrigger>
+						<SheetContent side="bottom" className="p-0 max-h-[90vh] overflow-y-auto">
+							<div className="p-5">
+								<FilterPanel
+									isMobile={true}
+									categories={categories}
+									selectedCategories={selectedCategories}
+									showInStockOnly={showInStockOnly}
+									showNotAddedOnly={showNotAddedOnly}
+									onCategoryChange={handleCategoryChange}
+									onStockToggle={setShowInStockOnly}
+									onNotAddedToggle={setShowNotAddedOnly}
+									addedProductIds={addedProductIds}
+								/>
+							</div>
+						</SheetContent>
+					</Sheet>
+				</div>
+
+				{/* Product Grid */}
 				<div className="lg:w-3/4">
 					<ProductGrid products={filteredProducts} isLoading={isLoading} onAdd={(id) => setAddedProductIds((prev) => [...prev, id])} />
 				</div>
