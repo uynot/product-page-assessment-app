@@ -2,12 +2,28 @@ import React from "react";
 import ProductCard from "./ProductCard";
 import ProductCardSkeleton from "./ProductCardSkeleton";
 import { Product } from "./ProductCatalog";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ProductGridProps {
 	products: Product[];
 	isLoading?: boolean;
 	onAdd: (productId: number) => void;
 }
+
+const containerVariants = {
+	hidden: {},
+	show: {
+		transition: {
+			staggerChildren: 0.05,
+		},
+	},
+};
+
+const itemVariants = {
+	hidden: { opacity: 0, scale: 0.95 },
+	show: { opacity: 1, scale: 1 },
+	exit: { opacity: 0, scale: 0.95 },
+};
 
 const ProductGrid = ({ products, isLoading = false, onAdd }: ProductGridProps) => {
 	if (isLoading) {
@@ -40,11 +56,20 @@ const ProductGrid = ({ products, isLoading = false, onAdd }: ProductGridProps) =
 	}
 
 	return (
-		<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-			{products.map((product) => (
-				<ProductCard key={product.id} product={product} onAdd={onAdd} /> // ✅ 傳下去
-			))}
-		</div>
+		<motion.div
+			className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+			variants={containerVariants}
+			initial="hidden"
+			animate="show"
+			layout>
+			<AnimatePresence>
+				{products.map((product) => (
+					<motion.div key={product.id} variants={itemVariants} layout initial="hidden" animate="show" exit="exit">
+						<ProductCard product={product} onAdd={onAdd} />
+					</motion.div>
+				))}
+			</AnimatePresence>
+		</motion.div>
 	);
 };
 
